@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import banner from "../assets/banner-landscape.jpg";
 import tornPaper from "../assets/torn-paper.png";
 import luciana from "../assets/luciana.jpg";
 import austria from "../assets/austria.jpg";
-import eslovenia from "../assets/Eslovenia.jpg"
-import madrid from "../assets/MadridRibadumia.jpg"
+import eslovenia from "../assets/Eslovenia.jpg";
+import madrid from "../assets/MadridRibadumia.jpg";
 
 const PINE = "#465245";
 
@@ -26,6 +26,48 @@ function Polaroid({ src, alt = "", caption = "", className = "", imgClass = "" }
   );
 }
 
+/* ========================= Scroll To Top ========================= */
+function ScrollToTopButton() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisible = () => {
+      if (window.scrollY > 400) setVisible(true);
+      else setVisible(false);
+    };
+    window.addEventListener("scroll", toggleVisible);
+    return () => window.removeEventListener("scroll", toggleVisible);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      aria-label="Volver arriba"
+      className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 h-11 w-11 flex items-center justify-center border backdrop-blur-sm transition duration-300
+        ${
+          visible
+            ? "opacity-100 border-white/30 bg-white/10 hover:bg-white/20"
+            : "opacity-0 pointer-events-none"
+        }`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  );
+}
+
+/* ========================= Página SobreMi ========================= */
 export default function SobreMi() {
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
@@ -49,45 +91,32 @@ export default function SobreMi() {
         <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.42),rgba(0,0,0,.18))]" />
 
         {/* Contenido del banner */}
-          <Container className="absolute inset-0 flex items-center">
-      <div className="w-full grid grid-cols-12 items-center pb-24">
-        {/* Título centrado en mobile */}
-        <div className="col-span-12 md:col-span-6 text-center md:text-left">
-          <h1
-            className="text-5xl sm:text-6xl lg:text-7xl font-extrabold drop-shadow-lg"
-            style={{ fontFamily: "var(--font-lacquer)" }}
-          >
-            Sobre Mi
-          </h1>
-        </div>
+        <Container className="absolute inset-0 flex items-center">
+          <div className="w-full grid grid-cols-12 items-center pb-24">
+            {/* Título centrado en mobile */}
+            <div className="col-span-12 md:col-span-6 text-center md:text-left">
+              <h1
+                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold drop-shadow-lg"
+                style={{ fontFamily: "var(--font-lacquer)" }}
+              >
+                Sobre Mi
+              </h1>
+            </div>
 
-        {/* Polaroids solo en desktop */}
-        <div className="col-span-6 relative hidden md:block z-20">
-          <div className="absolute right-0 -top-20 rotate-[-6deg]">
-            <Polaroid
-              src={austria}
-              caption="Austria"
-              imgClass="w-47 h-47"
-            />
+            {/* Polaroids solo en desktop */}
+            <div className="col-span-6 relative hidden md:block z-20">
+              <div className="absolute right-0 -top-20 rotate-[-6deg]">
+                <Polaroid src={austria} caption="Austria" imgClass="w-47 h-47" />
+              </div>
+              <div className="absolute right-[14rem] -top-10 rotate-[5deg]">
+                <Polaroid src={eslovenia} caption="Eslovenia" imgClass="w-47 h-47" />
+              </div>
+              <div className="absolute right-[7rem] top-38 rotate-[-2deg]">
+                <Polaroid src={madrid} caption="Madrid / Ribadumia" imgClass="w-47 h-47" />
+              </div>
+            </div>
           </div>
-          <div className="absolute right-[14rem] -top-10 rotate-[5deg]">
-            <Polaroid
-              src={eslovenia}
-              caption="Eslovenia"
-              imgClass="w-47 h-47"
-            />
-          </div>
-          <div className="absolute right-[7rem] top-38 rotate-[-2deg]">
-            <Polaroid
-              src={madrid}
-              caption="Madrid / Ribadumia"
-              imgClass="w-47 h-47"
-            />
-          </div>
-        </div>
-      </div>
-          </Container>
-
+        </Container>
 
         {/* Papel rasgado del borde inferior del banner */}
         <img
@@ -110,18 +139,18 @@ export default function SobreMi() {
             </h2>
 
             <p className="text-lg leading-relaxed text-gray-700 font-quicksand mb-5">
-              Soy Luciana y pedaleo para mirar el mundo a otra velocidad. Este proyecto es mi
-              bitácora: rutas, personas y lugares que me transforman mientras avanzo. Me gusta
-              registrar lo cotidiano —un café compartido, una subida eterna, el viento a favor— y
-              convertirlo en historias que animen a más personas a salir a rodar. Aquí vas a encontrar
-              relatos, consejos prácticos y recursos que me sirven en la ruta: planificación, equipo
-              minimalista y aprendizajes de viajar sola.
+              Soy Luciana y pedaleo para mirar el mundo a otra velocidad. Este proyecto es mi bitácora:
+              rutas, personas y lugares que me transforman mientras avanzo. Me gusta registrar lo
+              cotidiano —un café compartido, una subida eterna, el viento a favor— y convertirlo en
+              historias que animen a más personas a salir a rodar. Aquí vas a encontrar relatos, consejos
+              prácticos y recursos que me sirven en la ruta: planificación, equipo minimalista y
+              aprendizajes de viajar sola.
             </p>
 
             <p className="text-lg leading-relaxed text-gray-700 font-quicksand mb-10">
-              Mi idea no es llegar “rápido”, sino llegar conectada con el camino. Cuando puedo,
-              documento en video y subo clips a redes; cuando no, escribo a la antigua en una libreta
-              y lo vuelco acá. Si querés acompañar el viaje en tiempo real, te dejo mis redes acá abajo.
+              Mi idea no es llegar “rápido”, sino llegar conectada con el camino. Cuando puedo, documento
+              en video y subo clips a redes; cuando no, escribo a la antigua en una libreta y lo vuelco
+              acá. Si querés acompañar el viaje en tiempo real, te dejo mis redes acá abajo.
             </p>
 
             {/* Redes */}
@@ -155,8 +184,7 @@ export default function SobreMi() {
             <div className="flex items-start justify-center gap-6">
               <div className="max-w-md">
                 <p className="italic text-gray-700 font-quicksand text-center md:text-left">
-                  Gracias por pasar por aquí. 
-                  ¡Nos vemos en la ruta!
+                  Gracias por pasar por aquí. ¡Nos vemos en la ruta!
                 </p>
                 <p
                   className="mt-2 text-2xl text-center md:text-left"
@@ -175,6 +203,9 @@ export default function SobreMi() {
           </div>
         </Container>
       </section>
+
+      {/* Botón Scroll To Top */}
+      <ScrollToTopButton />
     </div>
   );
 }
