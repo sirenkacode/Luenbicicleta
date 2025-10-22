@@ -15,13 +15,13 @@ export default function Footer() {
         <div className="space-y-2 text-sm font-quicksand">
           <h3 className="text-lg font-semibold mb-2 font-mansalva">Contacto</h3>
           <p>
-            📧{" "}
+            {" "}
             <a href="mailto:contacto@luenbici.com" className="hover:underline">
               contacto@luenbici.com
             </a>
           </p>
           <p>
-            📞{" "}
+            {" "}
             <a href="tel:+59800000000" className="hover:underline">
               +598 000 000 000
             </a>
@@ -31,7 +31,7 @@ export default function Footer() {
         {/* Columna central: frase o recordatorio */}
         <div className="text-sm font-quicksand opacity-90 max-w-sm">
           <p>
-            Gracias por acompañarme en este viaje 🌍🚴‍♀️.  
+            Gracias por acompañarme en este viaje.  
             Seguí mis rutas y descubrí el mundo conmigo, una pedalada a la vez.
           </p>
         </div>

@@ -9,6 +9,7 @@ import socialBg from "../assets/social-bg.jpg";
 import Footer from "../components/Footer";
 import tornPaper from "../assets/torn-paper.png";
 import introBg from "../assets/rippedpaper-mid.png";
+import tornPaperTop from "../assets/torn-paper-top.png"
 
 // helpers UI
 function Container({ className = "", children }) {
@@ -107,11 +108,11 @@ function Hero() {
 
           {/* Bloque 2: métricas */}
           <div className="space-y-2 font-quicksand text-base sm:text-lg md:text-right reveal">
-            <p>🌍 <span className="font-semibold text-white">16 países visitados</span></p>
-            <p>🚴‍♀️ <span className="font-semibold text-white">5000 km recorridos</span></p>
-            <p>⏱️ <span className="font-semibold text-white">543 días en la ruta</span></p>
+            <p><span className="font-semibold text-white">16 países visitados</span></p>
+            <p><span className="font-semibold text-white">5000 km recorridos</span></p>
+            <p><span className="font-semibold text-white">543 días en la ruta</span></p>
             <p className="mt-4 text-sm text-white/90 italic">
-              Próximo destino: <span className="font-semibold">Patagonia Argentina</span> 🇦🇷
+              Próximo destino: <span className="font-semibold">Patagonia Argentina</span>
             </p>
           </div>
         </div>
@@ -269,60 +270,82 @@ function BlogCarousel() {
   }, []);
 
   return (
-    <section id="blog-home" className="py-16 sm:py-20 reveal" style={{ background: PINE }}>
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
-        <header className="mb-8">
-          <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Blog</p>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">Últimas actualizaciones</h2>
-        </header>
+  <section
+    id="blog-home"
+    className="relative py-16 sm:py-20 reveal"
+    style={{ background: PINE }}
+  >
+    {/* Borde superior tipo papel */}
+    <img
+      src={tornPaperTop}
+      alt=""
+      aria-hidden="true"
+      className="pointer-events-none select-none absolute top-0 left-0 w-full block z-10"
+    />
 
-        <div className="relative">
-          {/* Flecha izquierda (más alejada y auto-oculta) */}
-          <button
-            aria-label="Anterior"
-            onClick={() => scrollByCards(-1)}
-            className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
-              ${canLeft ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+    <div className="relative mx-auto w-full max-w-7xl pt-24 px-4 sm:px-6 lg:px-8 text-white z-20">
+      <header className="mb-8">
+        <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Blog</p>
+        <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">
+          Últimas actualizaciones
+        </h2>
+      </header>
 
-          {/* Rail */}
-          <div
-            ref={railRef}
-            className="hide-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 pr-2"
-            aria-label="Carrusel de posts personales"
-          >
-            {personal.map((p) => (
-              <div key={p.id} className="snap-start shrink-0 w-80">
-                <BlogCardPine post={p} />
-              </div>
-            ))}
-          </div>
+      <div className="relative">
+        {/* Flecha izquierda */}
+        <button
+          aria-label="Anterior"
+          onClick={() => scrollByCards(-1)}
+          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+            ${canLeft ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
 
-          {/* Flecha derecha (más alejada y auto-oculta) */}
-          <button
-            aria-label="Siguiente"
-            onClick={() => scrollByCards(1)}
-            className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
-              ${canRight ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+        {/* Rail */}
+        <div
+          ref={railRef}
+          className="hide-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 pr-2"
+          aria-label="Carrusel de posts personales"
+        >
+          {personal.map((p) => (
+            <div key={p.id} className="snap-start shrink-0 w-80">
+              <BlogCardPine post={p} />
+            </div>
+          ))}
         </div>
-      </div>
 
-      <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
-    </section>
+        {/* Flecha derecha */}
+        <button
+          aria-label="Siguiente"
+          onClick={() => scrollByCards(1)}
+          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+            ${canRight ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
+  </section>
+
   );
 }
 
-/* ========================= Social ========================= */
+/* ========================= Social (con estrellas custom) ========================= */
 function SocialLive() {
+  const canvasRef = useRef(null);
+  const rafRef = useRef(null);
+  const roRef = useRef(null);
+  const starsRef = useRef([]);
+  const lastTsRef = useRef(0);
+
+  // Carga de scripts de Instagram / TikTok (tu lógica original)
   useEffect(() => {
     // Instagram
     if (!document.querySelector("#instgrm-script")) {
@@ -344,14 +367,152 @@ function SocialLive() {
     }
   }, []);
 
-  return (
-    <section id="social" className="relative py-16 sm:py-20 text-white reveal">
-      {/* Fondo con foto */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${socialBg})` }} aria-hidden />
-      {/* Filtro oscuro tipo banner */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.60),rgba(0,0,0,.25))]" />
+  // === Estrellas personalizadas con <canvas> ===
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d", { alpha: true });
 
-      <Container className="relative">
+    // ---------- Configurable ----------
+    const BASE_DENSITY = 0.12; // estrellas por cada 1,000 px² (ajustá gusto)
+    const SPEED_MIN = 18;      // px/seg (mín)
+    const SPEED_MAX = 48;      // px/seg (máx)
+    const SIZE_MIN = 0.6;      // px radio (mín)
+    const SIZE_MAX = 2.2;      // px radio (máx)
+    const GLOW = 3;            // blur glow
+    const COLORS = ["#ffffff", "#cfe9ff"];
+    const TWINKLE_SPEED = 1.5; // rapidez del "titilar"
+    // ----------------------------------
+
+    const DPR = Math.max(1, Math.floor(window.devicePixelRatio || 1));
+
+    const parent = canvas.parentElement; // la <section id="social">
+    const state = { w: 0, h: 0 };
+
+    function rand(min, max) {
+      return min + Math.random() * (max - min);
+    }
+
+    function reseedStars() {
+      // cantidad basada en densidad y área
+      const area = (state.w * state.h) / 1000; // px²/1000
+      const target = Math.max(40, Math.floor(area * BASE_DENSITY));
+      const arr = [];
+      for (let i = 0; i < target; i++) {
+        arr.push({
+          x: Math.random() * state.w,
+          y: Math.random() * state.h,
+          r: rand(SIZE_MIN, SIZE_MAX),
+          v: rand(SPEED_MIN, SPEED_MAX), // px/seg (independiente del DPR)
+          aBase: rand(0.4, 0.9),         // opacidad base
+          aAmp: rand(0.15, 0.35),        // amplitud de titileo
+          aOff: Math.random() * Math.PI * 2, // desfase del titileo
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        });
+      }
+      starsRef.current = arr;
+    }
+
+    function resize() {
+      const w = parent.clientWidth || window.innerWidth;
+      const h = parent.clientHeight || 520; // fallback si no midió aún
+      state.w = w;
+      state.h = h;
+
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      canvas.width = Math.max(1, Math.floor(w * DPR));
+      canvas.height = Math.max(1, Math.floor(h * DPR));
+
+      // Normalizamos el sistema de coordenadas a CSS px
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+      reseedStars();
+    }
+
+    function draw(ts) {
+      const dt = lastTsRef.current ? (ts - lastTsRef.current) / 1000 : 0;
+      lastTsRef.current = ts;
+
+      ctx.clearRect(0, 0, state.w, state.h);
+
+      ctx.shadowBlur = GLOW;
+      for (const s of starsRef.current) {
+        // Opacidad titilante
+        const a = s.aBase + Math.sin(ts / 1000 * TWINKLE_SPEED + s.aOff) * s.aAmp;
+        ctx.shadowColor = s.color;
+        ctx.fillStyle = s.color;
+        ctx.globalAlpha = Math.max(0, Math.min(1, a));
+
+        // Dibujar
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Actualizar posición (subiendo)
+        s.y -= s.v * dt;
+        if (s.y < -4) {
+          s.y = state.h + 4;
+          s.x = Math.random() * state.w;
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      rafRef.current = requestAnimationFrame(draw);
+    }
+
+    // Primera medida + observers
+    resize();
+    rafRef.current = requestAnimationFrame(draw);
+
+    roRef.current = new ResizeObserver(resize);
+    roRef.current.observe(parent);
+
+    const onResize = () => resize();
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+
+      if (roRef.current) {
+        try { roRef.current.disconnect(); } catch {}
+        roRef.current = null;
+      }
+
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
+  }, []);
+
+  return (
+    <section
+      id="social"
+      className="relative py-16 sm:py-20 text-white reveal min-h-[520px]"
+    >
+      {/* Fondo con foto (capa base) */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${socialBg})` }}
+        aria-hidden
+      />
+
+      {/* Overlay (debajo de las estrellas para que brillen bien) */}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.60),rgba(0,0,0,.25))] z-[5]"
+        aria-hidden
+      />
+
+      {/* Estrellas: por encima del overlay y por debajo del contenido */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 z-10 pointer-events-none block"
+        aria-hidden="true"
+      />
+
+      {/* Contenido */}
+      <Container className="relative z-20">
         <header className="mb-8">
           <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Instagram + TikTok</p>
           <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">En tiempo real</h2>
