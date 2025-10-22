@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import banner from "../assets/banner-landscape.jpg";
+import logo from "../assets/logo.png";
 
 
 export default function Navbar() {
@@ -29,11 +30,7 @@ export default function Navbar() {
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-bold font-mansalva text-lg">
-          <img
-            src="/src/assets/logo.png"
-            alt="Logo Lu en Bici"
-            className="h-10 w-10 object-contain"
-            />
+          <img src={logo} alt="Logo Lu en Bici" className="h-10 w-10 object-contain" />
 
           Lu en Bicicleta
         </Link>

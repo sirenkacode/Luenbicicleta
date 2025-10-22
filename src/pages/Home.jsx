@@ -169,7 +169,7 @@ function Intro() {
 
         {/* Texto central */}
         <div className="relative max-w-md text-center md:text-left reveal">
-          <h2 className="font-mansalva text-4xl text-gray-800 mb-2">¡Hola! Soy Luciana</h2>
+          <h2 className="font-mansalva text-4xl text-gray-800 mb-2 font-extrabold">¡Hola! Soy Luciana</h2>
           <p className="font-quicksand text-gray-700 text-lg leading-relaxed">
             Ando en bicicleta por el mundo compartiendo rutas, experiencias y paisajes. Este espacio es mi bitácora de
             viaje: historias de camino, fotos y anécdotas de cada aventura sobre dos ruedas.
@@ -524,7 +524,7 @@ function SocialLive() {
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">Instagram</h3>
               <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
-                @luciana.en.bici
+                @luenbicicleta
               </a>
             </div>
             <div className="bg-black/20 p-2">
@@ -542,7 +542,7 @@ function SocialLive() {
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">TikTok</h3>
               <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
-                @luciana.en.bici
+                @luenbicicleta
               </a>
             </div>
             <div className="bg-black/20 p-2">
