@@ -168,7 +168,7 @@ function Hero() {
               ¡Bienvenid@s a mi diario de ruta!
             </h1>
             <p className="mt-4 max-w-md text-base sm:text-lg text-white/90 font-quicksand">
-              Viajes en bicicleta por Europa y el mundo.  
+              Viajes en bicicleta por Europa, Latinoamerica y próximamente el mundo.  
               Paisajes, relatos y consejos en tiempo real.
             </p>
           </div>
@@ -570,7 +570,8 @@ function SocialLive() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
-      if (roRef.current) { try { roRef.current.disconnect(); } catch {} roRef.current = null; }
+      if (roRef.current) { try { roRef.current.disconnect(); } catch { // Ignorar error de desconexión del observer
+      } roRef.current = null; }
       window.removeEventListener("resize", onResize);
       window.removeEventListener("orientationchange", onResize);
     };
@@ -696,7 +697,7 @@ function PressCard({ item }) {
 }
 function PressCarousel() {
   return (
-    <Section id="prensa" title="En los medios" subtitle="Notas y entrevistas" className="reveal">
+    <Section id="prensa" title="En los medios" subtitle="Notas y entrevistas" className="reveal pb-24 sm:pb-40 mb-16 sm:mb-24">
       <div className="space-y-10">
         {/* Carrusel de notas */}
         <div className="relative">
