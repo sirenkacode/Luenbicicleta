@@ -35,6 +35,78 @@ function Section({ id, title, subtitle, children, className = "" }) {
   );
 }
 
+function CountUp({ end, duration = 1.8, className = "", decimals = 0, formatter }) {
+  const [value, setValue] = useState(0);
+  const startedRef = useRef(false);
+  const rafRef = useRef(0);
+  const elRef = useRef(null);
+
+  const prefersReduced = typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEffect(() => {
+    const el = elRef.current;
+    if (!el) return;
+
+    const start = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+
+      if (prefersReduced) {
+        setValue(end);
+        return;
+      }
+
+      const startTs = performance.now();
+      const d = Math.max(0.4, duration) * 1000; // ms
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+      const tick = (ts) => {
+        const p = Math.min(1, (ts - startTs) / d);
+        const eased = easeOutCubic(p);
+        const current = end * eased;
+        const factor = Math.pow(10, decimals);
+        setValue(Math.round(current * factor) / factor);
+        if (p < 1) {
+          rafRef.current = requestAnimationFrame(tick);
+        } else {
+          setValue(end);
+        }
+      };
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    // Arranca al entrar en viewport
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((en) => en.isIntersecting && start()),
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+
+    return () => {
+      io.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [end, duration, decimals, prefersReduced]);
+
+  const defaultFormat = (n) => new Intl.NumberFormat("es-ES", {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  }).format(n);
+
+  const fmt = formatter || defaultFormat;
+
+  return (
+    <span ref={elRef} className={className}>
+      {fmt(value)}
+    </span>
+  );
+}
+
+
 /* ========================= Hero ========================= */
 function Hero() {
   const NAV_H = 64;
@@ -106,15 +178,53 @@ function Hero() {
             <div className="h-40 border-l-2 border-dotted border-white/50 animate-pulse-line" />
           </div>
 
-          {/* Bloque 2: métricas */}
-          <div className="space-y-2 font-quicksand text-base sm:text-lg md:text-right reveal">
-            <p><span className="font-semibold text-white">16 países visitados</span></p>
-            <p><span className="font-semibold text-white">5000 km recorridos</span></p>
-            <p><span className="font-semibold text-white">543 días en la ruta</span></p>
-            <p className="mt-4 text-sm text-white/90 italic">
-              Próximo destino: <span className="font-semibold">Patagonia Argentina</span>
-            </p>
+          
+          {/* Bloque 2: métricas (número arriba, etiqueta debajo, alineadas a la derecha) */}
+          <div className="reveal font-quicksand flex flex-col items-end space-y-4">
+  {/* 16 países visitados */}
+  <div className="flex flex-col items-end leading-none">
+    <CountUp
+      end={16}
+      duration={1.4}
+      className="text-3xl sm:text-4xl font-extrabold text-white"
+    />
+    <span className="mt-1 text-sm sm:text-base text-white/95">
+      países visitados
+    </span>
+  </div>
+
+  {/* 5000 km recorridos */}
+  <div className="flex flex-col items-end leading-none">
+    <CountUp
+      end={5000}
+      duration={1.6}
+      className="text-3xl sm:text-4xl font-extrabold text-white"
+      formatter={(n) => new Intl.NumberFormat('es-ES').format(Math.round(n))}
+    />
+    <span className="mt-1 text-sm sm:text-base text-white/95">
+      km recorridos
+    </span>
+  </div>
+
+  {/* 543 días en la ruta */}
+  <div className="flex flex-col items-end leading-none">
+    <CountUp
+      end={543}
+      duration={1.2}
+      className="text-3xl sm:text-4xl font-extrabold text-white"
+    />
+    <span className="mt-1 text-sm sm:text-base text-white/95">
+      días en la ruta
+    </span>
+  </div>
+
+  {/* Próximo destino */}
+  <p className="mt-3 text-base sm:text-lg text-white/95 italic text-right">
+    Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span> 🇦🇷
+  </p>
           </div>
+
+
         </div>
 
         <div className="mt-40 flex justify-center">
