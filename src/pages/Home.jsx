@@ -707,7 +707,7 @@ function PressCarousel() {
       id="prensa"
       title="En los medios"
       subtitle="Notas y entrevistas"
-      className="pb-24 sm:pb-40 reveal"
+      className="pb-24 sm:pb-85 reveal"
     >
       <div className="flex justify-center">
         <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-3xl w-full">
