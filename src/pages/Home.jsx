@@ -156,7 +156,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
 
       {/* Contenido principal */}
-      <Container className="relative h-full flex flex-col justify-center">
+      <Container className="relative h-full flex flex-col justify-center pt-10 sm:pt-12 md:pt-0">
         {/* Grid principal con dos bloques y línea central */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left">
           {/* Bloque 1: título + descripción */}
@@ -228,7 +228,7 @@ function Hero() {
 
         </div>
 
-        <div className="mt-40 flex justify-center">
+        <div className="mt-16 sm:mt-24 md:mt-40 flex justify-center">
           <button
             onClick={scrollToContent}
             className="border-2 border-white text-white px-8 py-3 font-semibold hover:bg-[#465245] hover:border-[#465245] transition-colors duration-300 animate-float"
@@ -635,7 +635,7 @@ function SocialLive() {
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">YouTube</h3>
               <a
-                href="https://www.youtube.com/@lucianaenbici"
+                href="https://www.youtube.com/@"
                 className="text-sm text-white/90 hover:text-white underline font-quicksand"
                 target="_blank" rel="noopener noreferrer"
               >
