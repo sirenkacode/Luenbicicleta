@@ -1,5 +1,7 @@
 // src/components/Footer.jsx
 import tornPaperGreenTop from "../assets/torn-paper-green-top.png";
+import { FaTiktok } from "react-icons/fa";
+import { Instagram, Facebook, Youtube } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -10,7 +12,7 @@ export default function Footer() {
         borderTop: "4px solid #465245",
       }}
     >
-      {/* Borde superior: por detrás del contenido de la página */}
+      {/* Borde superior: papel verde */}
       <img
         src={tornPaperGreenTop}
         alt=""
@@ -19,6 +21,7 @@ export default function Footer() {
       />
 
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-center md:text-left">
+        {/* Columna izquierda: información de contacto */}
         <div className="space-y-2 text-sm font-quicksand">
           <h3 className="text-lg font-semibold mb-2 font-mansalva">Contacto</h3>
           <p>
@@ -31,8 +34,49 @@ export default function Footer() {
               +598 000 000 000
             </a>
           </p>
+
+          {/* Íconos de redes sociales */}
+          <div className="flex gap-4 pt-3 justify-center md:justify-start">
+            <a
+              href="https://www.instagram.com/luciana.en.bici"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-300 transition-colors"
+              aria-label="Instagram"
+            >
+              <Instagram size={22} />
+            </a>
+            <a
+              href="https://www.tiktok.com/@luciana.en.bici"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-300 transition-colors"
+              aria-label="TikTok"
+            >
+              <FaTiktok size={22} />
+            </a>
+            <a
+              href="https://www.facebook.com/luciana.en.bici"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-300 transition-colors"
+              aria-label="Facebook"
+            >
+              <Facebook size={22} />
+            </a>
+            <a
+              href="https://www.youtube.com/@lucianaenbici"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-emerald-300 transition-colors"
+              aria-label="YouTube"
+            >
+              <Youtube size={22} />
+            </a>
+          </div>
         </div>
 
+        {/* Columna central: mensaje */}
         <div className="text-sm font-quicksand opacity-90 max-w-sm">
           <p>
             Gracias por acompañarme en este viaje.  
@@ -40,6 +84,7 @@ export default function Footer() {
           </p>
         </div>
 
+        {/* Columna derecha: créditos */}
         <div className="text-sm font-quicksand opacity-90">
           <p>
             diseño web por{" "}
@@ -55,8 +100,9 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Línea inferior */}
       <div className="mt-10 text-center text-xs text-white/60 font-quicksand">
-        © {new Date().getFullYear()} Lu en Bici — Todos los derechos reservados.
+        © {new Date().getFullYear()} Lu en Bicicleta — Todos los derechos reservados.
       </div>
     </footer>
   );

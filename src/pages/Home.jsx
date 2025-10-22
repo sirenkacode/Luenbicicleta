@@ -374,28 +374,24 @@ function SocialLive() {
     const ctx = canvas.getContext("2d", { alpha: true });
 
     // ---------- Configurable ----------
-    const BASE_DENSITY = 0.12; // estrellas por cada 1,000 px² (ajustá gusto)
-    const SPEED_MIN = 18;      // px/seg (mín)
-    const SPEED_MAX = 48;      // px/seg (máx)
-    const SIZE_MIN = 0.6;      // px radio (mín)
-    const SIZE_MAX = 2.2;      // px radio (máx)
-    const GLOW = 3;            // blur glow
+    const BASE_DENSITY = 0.12;
+    const SPEED_MIN = 18;
+    const SPEED_MAX = 48;
+    const SIZE_MIN = 0.6;
+    const SIZE_MAX = 2.2;
+    const GLOW = 3;
     const COLORS = ["#ffffff", "#cfe9ff"];
-    const TWINKLE_SPEED = 1.5; // rapidez del "titilar"
+    const TWINKLE_SPEED = 1.5;
     // ----------------------------------
 
     const DPR = Math.max(1, Math.floor(window.devicePixelRatio || 1));
-
-    const parent = canvas.parentElement; // la <section id="social">
+    const parent = canvas.parentElement;
     const state = { w: 0, h: 0 };
 
-    function rand(min, max) {
-      return min + Math.random() * (max - min);
-    }
+    function rand(min, max) { return min + Math.random() * (max - min); }
 
     function reseedStars() {
-      // cantidad basada en densidad y área
-      const area = (state.w * state.h) / 1000; // px²/1000
+      const area = (state.w * state.h) / 1000;
       const target = Math.max(40, Math.floor(area * BASE_DENSITY));
       const arr = [];
       for (let i = 0; i < target; i++) {
@@ -403,10 +399,10 @@ function SocialLive() {
           x: Math.random() * state.w,
           y: Math.random() * state.h,
           r: rand(SIZE_MIN, SIZE_MAX),
-          v: rand(SPEED_MIN, SPEED_MAX), // px/seg (independiente del DPR)
-          aBase: rand(0.4, 0.9),         // opacidad base
-          aAmp: rand(0.15, 0.35),        // amplitud de titileo
-          aOff: Math.random() * Math.PI * 2, // desfase del titileo
+          v: rand(SPEED_MIN, SPEED_MAX),
+          aBase: rand(0.4, 0.9),
+          aAmp: rand(0.15, 0.35),
+          aOff: Math.random() * Math.PI * 2,
           color: COLORS[Math.floor(Math.random() * COLORS.length)],
         });
       }
@@ -415,16 +411,13 @@ function SocialLive() {
 
     function resize() {
       const w = parent.clientWidth || window.innerWidth;
-      const h = parent.clientHeight || 520; // fallback si no midió aún
-      state.w = w;
-      state.h = h;
+      const h = parent.clientHeight || 520;
+      state.w = w; state.h = h;
 
       canvas.style.width = `${w}px`;
       canvas.style.height = `${h}px`;
       canvas.width = Math.max(1, Math.floor(w * DPR));
       canvas.height = Math.max(1, Math.floor(h * DPR));
-
-      // Normalizamos el sistema de coordenadas a CSS px
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
       reseedStars();
@@ -435,33 +428,25 @@ function SocialLive() {
       lastTsRef.current = ts;
 
       ctx.clearRect(0, 0, state.w, state.h);
-
       ctx.shadowBlur = GLOW;
+
       for (const s of starsRef.current) {
-        // Opacidad titilante
         const a = s.aBase + Math.sin(ts / 1000 * TWINKLE_SPEED + s.aOff) * s.aAmp;
         ctx.shadowColor = s.color;
         ctx.fillStyle = s.color;
         ctx.globalAlpha = Math.max(0, Math.min(1, a));
-
-        // Dibujar
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
         ctx.fill();
 
-        // Actualizar posición (subiendo)
         s.y -= s.v * dt;
-        if (s.y < -4) {
-          s.y = state.h + 4;
-          s.x = Math.random() * state.w;
-        }
+        if (s.y < -4) { s.y = state.h + 4; s.x = Math.random() * state.w; }
       }
       ctx.globalAlpha = 1;
 
       rafRef.current = requestAnimationFrame(draw);
     }
 
-    // Primera medida + observers
     resize();
     rafRef.current = requestAnimationFrame(draw);
 
@@ -475,55 +460,46 @@ function SocialLive() {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
-
-      if (roRef.current) {
-        try { roRef.current.disconnect(); } catch {}
-        roRef.current = null;
-      }
-
+      if (roRef.current) { try { roRef.current.disconnect(); } catch {} roRef.current = null; }
       window.removeEventListener("resize", onResize);
       window.removeEventListener("orientationchange", onResize);
     };
   }, []);
 
   return (
-    <section
-      id="social"
-      className="relative py-16 sm:py-20 text-white reveal min-h-[520px]"
-    >
+    <section id="social" className="relative py-16 sm:py-20 text-white reveal min-h-[520px]">
       {/* Fondo con foto (capa base) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${socialBg})` }}
         aria-hidden
       />
-
-      {/* Overlay (debajo de las estrellas para que brillen bien) */}
-      <div
-        className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.60),rgba(0,0,0,.25))] z-[5]"
-        aria-hidden
-      />
+      {/* Overlay (debajo de las estrellas) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.60),rgba(0,0,0,.25))] z-[5]" aria-hidden />
 
       {/* Estrellas: por encima del overlay y por debajo del contenido */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 z-10 pointer-events-none block"
-        aria-hidden="true"
-      />
+      <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none block" aria-hidden="true" />
 
       {/* Contenido */}
       <Container className="relative z-20">
         <header className="mb-8">
-          <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Instagram + TikTok</p>
+          <p className="uppercase tracking-widest text-xs font-semibold text-white/80">
+            Instagram + YouTube + TikTok
+          </p>
           <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">En tiempo real</h2>
         </header>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        {/* 👉 Ahora 3 columnas en desktop: Instagram | YouTube | TikTok */}
+        <div className="grid lg:grid-cols-3 gap-8">
           {/* Instagram card */}
           <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">Instagram</h3>
-              <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
+              <a
+                href="https://www.instagram.com/luciana.en.bici"
+                className="text-sm text-white/90 hover:text-white underline font-quicksand"
+                target="_blank" rel="noopener noreferrer"
+              >
                 @luenbicicleta
               </a>
             </div>
@@ -537,11 +513,42 @@ function SocialLive() {
             </div>
           </div>
 
+          {/* YouTube card (nueva) */}
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+            <div className="p-4 flex items-center justify-between">
+              <h3 className="font-semibold font-mansalva text-xl">YouTube</h3>
+              <a
+                href="https://www.youtube.com/@lucianaenbici"
+                className="text-sm text-white/90 hover:text-white underline font-quicksand"
+                target="_blank" rel="noopener noreferrer"
+              >
+                @luenbicicleta
+              </a>
+            </div>
+            <div className="bg-black/20 p-2">
+              <div className="aspect-video w-full overflow-hidden">
+                <iframe
+                  width="100%"
+                  height="315"
+                  src="https://www.youtube.com/embed/VIDEO_ID_AQUI"
+                  title="Último video de YouTube"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          </div>
+
           {/* TikTok card */}
-          <div className="border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">TikTok</h3>
-              <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
+              <a
+                href="https://www.tiktok.com/@luciana.en.bici"
+                className="text-sm text-white/90 hover:text-white underline font-quicksand"
+                target="_blank" rel="noopener noreferrer"
+              >
                 @luenbicicleta
               </a>
             </div>
@@ -561,6 +568,7 @@ function SocialLive() {
     </section>
   );
 }
+
 
 /* ========================= Prensa ========================= */
 function PressCard({ item }) {
