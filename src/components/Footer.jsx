@@ -41,7 +41,7 @@ export default function Footer() {
           {/* Íconos de redes sociales */}
           <div className="flex gap-4 pt-3 justify-center md:justify-start">
             <a
-              href="https://www.instagram.com/luciana.en.bici"
+              href="https://www.instagram.com/lulazabal"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-300 transition-colors"
@@ -50,7 +50,7 @@ export default function Footer() {
               <Instagram size={22} />
             </a>
             <a
-              href="https://www.tiktok.com/@luciana.en.bici"
+              href="https://www.tiktok.com/@luenbicicleta"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-300 transition-colors"
@@ -59,7 +59,7 @@ export default function Footer() {
               <FaTiktok size={22} />
             </a>
             <a
-              href="https://www.facebook.com/luciana.en.bici"
+              href="https://www.facebook.com/p/Luciana-Olazábal-100086542695263"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-300 transition-colors"
@@ -68,7 +68,7 @@ export default function Footer() {
               <Facebook size={22} />
             </a>
             <a
-              href="https://www.youtube.com/@lucianaenbici"
+              href="https://www.youtube.com/@"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-emerald-300 transition-colors"

@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import { useEffect, useRef, useState } from "react";
 import posts from "../data/posts.json";
-import press from "../data/press.json";
+// import press from "../data/press.json";
 import banner from "../assets/banner-landscape.jpg";
 import polaroidPortrait from "../assets/polaroid-portrait.jpg";
 import polaroidSquare from "../assets/polaroid-square.jpg";
@@ -699,62 +699,39 @@ function SocialLive() {
 }
 
 
-/* ========================= Prensa ========================= */
-function PressCard({ item }) {
-  return (
-    <a href={item.url} className="block border-gray-200 shadow-sm overflow-hidden group bg-white transition-transform hover:-translate-y-0.5">
-      <div className="p-5 flex items-center gap-4">
-        <img src={item.logo} alt="logo" className="h-10 w-10 object-cover grayscale group-hover:grayscale-0 transition" />
-        <div>
-          <div className="text-sm text-gray-500"> {item.outlet} </div>
-          <div className="font-semibold group-hover:text-emerald-700">{item.title}</div>
-        </div>
-      </div>
-    </a>
-  );
-}
+/* ========================= Prensa  ========================= */
 function PressCarousel() {
   return (
-    <Section id="prensa" title="En los medios" subtitle="Notas y entrevistas" className="reveal pb-24 sm:pb-40 mb-16 sm:mb-24">
-      <div className="space-y-10">
-        {/* Carrusel de notas */}
-        <div className="relative">
-          <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 hide-scrollbar" aria-label="Carrusel de notas">
-            {press.map((n) => (
-              <div key={n.id} className="snap-start shrink-0 w-80">
-                <PressCard item={n} />
-              </div>
-            ))}
+    <Section
+      id="prensa"
+      title="En los medios"
+      subtitle="Notas y entrevistas"
+      className="reveal pb-24 sm:pb-40"
+    >
+      <div className="flex justify-center">
+        <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-3xl w-full reveal">
+          <div className="aspect-video w-full overflow-hidden">
+            <iframe
+              src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fprogramaanuestramanera%2Fvideos%2F800684968037236%2F&show_text=false&width=560&t=0"
+              width="100%"
+              height="314"
+              style={{ border: "none", overflow: "hidden" }}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen={true}
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              title="Entrevista en A Nuestra Manera"
+            />
           </div>
-        </div>
-
-        {/* Video de Facebook */}
-        <div className="flex justify-center">
-          <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-2xl w-full reveal">
-            <div className="aspect-video w-full overflow-hidden">
-              <iframe
-                src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fprogramaanuestramanera%2Fvideos%2F800684968037236%2F&show_text=false&width=560&t=0"
-                width="100%"
-                height="314"
-                style={{ border: "none", overflow: "hidden" }}
-                scrolling="no"
-                frameBorder="0"
-                allowFullScreen={true}
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                title="Entrevista en A Nuestra Manera"
-              />
-            </div>
-            <p className="text-center text-sm text-gray-700 mt-3 font-quicksand">
-              Entrevista para el programa <span className="font-semibold">A Nuestra Manera</span>
-            </p>
-          </div>
+          <p className="text-center text-sm text-gray-700 mt-3 font-quicksand">
+            Entrevista para el programa <span className="font-semibold">A Nuestra Manera</span>
+          </p>
         </div>
       </div>
-
-      <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
     </Section>
   );
 }
+
 
 /* ========================= Scroll To Top ========================= */
 function ScrollToTopButton() {
