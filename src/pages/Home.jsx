@@ -160,7 +160,7 @@ function Hero() {
         {/* Grid principal con dos bloques y línea central */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left">
           {/* Bloque 1: título + descripción */}
-          <div className="flex flex-col items-center md:items-start justify-center text-center md:text-left reveal">
+          <div className="flex flex-col items-center justify-center text-center md:items-start md:text-left reveal">
             <h1
               className="text-4xl sm:text-6xl font-extrabold drop-shadow-lg"
               style={{ fontFamily: "var(--font-lacquer)" }}
@@ -179,50 +179,51 @@ function Hero() {
           </div>
 
           
-          {/* Bloque 2: métricas (número arriba, etiqueta debajo, alineadas a la derecha) */}
-          <div className="reveal font-quicksand flex flex-col items-end space-y-4">
-  {/* 16 países visitados */}
-  <div className="flex flex-col items-end leading-none">
-    <CountUp
-      end={16}
-      duration={1.4}
-      className="text-3xl sm:text-4xl font-extrabold text-white"
-    />
-    <span className="mt-1 text-sm sm:text-base text-white/95">
-      países visitados
-    </span>
-  </div>
+         {/* Métricas: centradas en mobile, derecha en desktop */}
+          <div className="reveal font-quicksand flex flex-col items-center md:items-end space-y-4 text-center md:text-right">
+            {/* 16 países visitados */}
+            <div className="flex flex-col items-center md:items-end leading-none w-full">
+              <CountUp
+                end={16}
+                duration={1.4}
+                className="block text-3xl sm:text-4xl font-extrabold text-white text-center md:text-right"
+              />
+              <span className="mt-1 text-sm sm:text-base text-white/95 text-center md:text-right">
+                países visitados
+              </span>
+            </div>
 
-  {/* 5000 km recorridos */}
-  <div className="flex flex-col items-end leading-none">
-    <CountUp
-      end={5000}
-      duration={1.6}
-      className="text-3xl sm:text-4xl font-extrabold text-white"
-      formatter={(n) => new Intl.NumberFormat('es-ES').format(Math.round(n))}
-    />
-    <span className="mt-1 text-sm sm:text-base text-white/95">
-      km recorridos
-    </span>
-  </div>
+            {/* 5000 km recorridos */}
+            <div className="flex flex-col items-center md:items-end leading-none w-full">
+              <CountUp
+                end={5000}
+                duration={1.6}
+                className="block text-3xl sm:text-4xl font-extrabold text-white text-center md:text-right"
+                formatter={(n) => new Intl.NumberFormat('es-ES').format(Math.round(n))}
+              />
+              <span className="mt-1 text-sm sm:text-base text-white/95 text-center md:text-right">
+                km recorridos
+              </span>
+            </div>
 
-  {/* 543 días en la ruta */}
-  <div className="flex flex-col items-end leading-none">
-    <CountUp
-      end={543}
-      duration={1.2}
-      className="text-3xl sm:text-4xl font-extrabold text-white"
-    />
-    <span className="mt-1 text-sm sm:text-base text-white/95">
-      días en la ruta
-    </span>
-  </div>
+            {/* 543 días en la ruta */}
+            <div className="flex flex-col items-center md:items-end leading-none w-full">
+              <CountUp
+                end={543}
+                duration={1.2}
+                className="block text-3xl sm:text-4xl font-extrabold text-white text-center md:text-right"
+              />
+              <span className="mt-1 text-sm sm:text-base text-white/95 text-center md:text-right">
+                días en la ruta
+              </span>
+            </div>
 
-  {/* Próximo destino */}
-  <p className="mt-3 text-base sm:text-lg text-white/95 italic text-right">
-    Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span>
-  </p>
+            {/* Próximo destino */}
+            <p className="mt-3 text-base sm:text-lg text-white/95 italic text-center md:text-right">
+              Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span> 🇦🇷
+            </p>
           </div>
+
 
 
         </div>

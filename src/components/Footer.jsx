@@ -20,7 +20,8 @@ export default function Footer() {
         className="pointer-events-none select-none absolute top-0 left-0 w-full -translate-y-full -z-10 block"
       />
 
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-center md:text-left">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-end text-center md:text-left gap-8">
+
         {/* Columna izquierda: información de contacto */}
         <div className="space-y-2 text-sm font-quicksand">
           <h3 className="text-lg font-semibold mb-2 font-mansalva">Contacto</h3>
