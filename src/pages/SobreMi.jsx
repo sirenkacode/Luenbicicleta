@@ -96,7 +96,7 @@ export default function SobreMi() {
             {/* Título centrado en mobile */}
             <div className="col-span-12 md:col-span-6 text-center md:text-left">
               <h1
-                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold drop-shadow-lg"
+                className="text-5xl sm:text-6xl lg:text-7xl font-extrabold drop-shadow-lg reveal"
                 style={{ fontFamily: "var(--font-lacquer)" }}
               >
                 Sobre Mi
@@ -104,15 +104,15 @@ export default function SobreMi() {
             </div>
 
             {/* Polaroids solo en desktop */}
-            <div className="col-span-6 relative hidden md:block z-20">
+            <div className="col-span-6 relative hidden md:block z-20 reveal">
               <div className="absolute right-0 -top-20 rotate-[-6deg]">
-                <Polaroid src={austria} caption="Austria" imgClass="w-47 h-47" />
+                <Polaroid src={austria} caption="Austria" imgClass="w-48 h-48" />
               </div>
               <div className="absolute right-[14rem] -top-10 rotate-[5deg]">
-                <Polaroid src={eslovenia} caption="Eslovenia" imgClass="w-47 h-47" />
+                <Polaroid src={eslovenia} caption="Eslovenia" imgClass="w-48 h-48" />
               </div>
               <div className="absolute right-[7rem] top-38 rotate-[-2deg]">
-                <Polaroid src={madrid} caption="Madrid / Ribadumia" imgClass="w-47 h-47" />
+                <Polaroid src={madrid} caption="Madrid / Ribadumia" imgClass="w-48 h-48" />
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@ export default function SobreMi() {
       </header>
 
       {/* ============== Contenido centrado ============== */}
-      <section className="relative z-0 bg-white pt-14 sm:pb-85">
+      <section className="relative z-0 bg-white pt-14 sm:pb-85 reveal">
         <Container>
           <div className="max-w-3xl mx-auto">
             <h2
@@ -194,7 +194,7 @@ export default function SobreMi() {
                 </p>
               </div>
               <div className="shrink-0">
-                <Polaroid src={luciana} alt="Retrato de Luciana" caption="Lu en Bicicleta" imgClass="w-47 h-47" />
+                <Polaroid src={luciana} alt="Retrato de Luciana" caption="Lu en Bicicleta" imgClass="w-64 h-64" />
               </div>
             </div>
 
