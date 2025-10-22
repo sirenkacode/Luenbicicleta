@@ -20,7 +20,7 @@ function Section({ id, title, subtitle, children, className = "" }) {
     <section id={id} className={`py-16 sm:py-20 ${className}`}>
       <Container>
         {(title || subtitle) && (
-          <header className="mb-10 reveal">
+          <header className="mb-10">
             {subtitle && <p className="uppercase tracking-widest text-xs font-semibold text-gray-500">{subtitle}</p>}
             {title && (
               <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold" style={{ fontFamily: "var(--font-mansalva)" }}>
@@ -158,16 +158,16 @@ function Hero() {
       {/* Contenido principal */}
       <Container className="relative h-full flex flex-col justify-center pt-10 sm:pt-12 md:pt-0">
         {/* Grid principal con dos bloques y línea central */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left reveal">
           {/* Bloque 1: título + descripción */}
-          <div className="flex flex-col items-center justify-center text-center md:items-start md:text-left reveal">
+          <div className="flex flex-col items-center justify-center text-center md:items-start md:text-left">
             <h1
-              className="text-4xl sm:text-6xl font-extrabold drop-shadow-lg"
+              className="text-4xl sm:text-6xl font-extrabold drop-shadow-lg reveal"
               style={{ fontFamily: "var(--font-lacquer)" }}
             >
               ¡Bienvenid@s a mi diario de ruta!
             </h1>
-            <p className="mt-4 max-w-md text-base sm:text-lg text-white/90 font-quicksand">
+            <p className="mt-4 max-w-md text-base sm:text-lg text-white/90 font-quicksand reveal">
               Viajes en bicicleta por Europa, Latinoamerica y próximamente el mundo.  
               Paisajes, relatos y consejos en tiempo real.
             </p>
@@ -180,9 +180,9 @@ function Hero() {
 
           
          {/* Métricas: centradas en mobile, derecha en desktop */}
-          <div className="reveal font-quicksand flex flex-col items-center md:items-end space-y-4 text-center md:text-right">
+          <div className="font-quicksand flex flex-col items-center md:items-end space-y-4 text-center md:text-right">
             {/* 16 países visitados */}
-            <div className="flex flex-col items-center md:items-end leading-none w-full">
+            <div className="flex flex-col items-center md:items-end leading-none w-full reveal">
               <CountUp
                 end={16}
                 duration={1.4}
@@ -194,7 +194,7 @@ function Hero() {
             </div>
 
             {/* 5000 km recorridos */}
-            <div className="flex flex-col items-center md:items-end leading-none w-full">
+            <div className="flex flex-col items-center md:items-end leading-none w-full reveal">
               <CountUp
                 end={5000}
                 duration={1.6}
@@ -207,7 +207,7 @@ function Hero() {
             </div>
 
             {/* 543 días en la ruta */}
-            <div className="flex flex-col items-center md:items-end leading-none w-full">
+            <div className="flex flex-col items-center md:items-end leading-none w-full reveal">
               <CountUp
                 end={543}
                 duration={1.2}
@@ -219,7 +219,7 @@ function Hero() {
             </div>
 
             {/* Próximo destino */}
-            <p className="mt-3 text-base sm:text-lg text-white/95 italic text-center md:text-right">
+            <p className="mt-3 text-base sm:text-lg text-white/95 italic text-center md:text-right reveal">
               Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span>
             </p>
           </div>
@@ -228,7 +228,7 @@ function Hero() {
 
         </div>
 
-        <div className="mt-16 sm:mt-24 md:mt-40 flex justify-center">
+        <div className="mt-16 sm:mt-24 md:mt-40 flex justify-center reveal">
           <button
             onClick={scrollToContent}
             className="border-2 border-white text-white px-8 py-3 font-semibold hover:bg-[#465245] hover:border-[#465245] transition-colors duration-300 animate-float"
@@ -252,10 +252,7 @@ function Hero() {
 /* ========================= Intro ========================= */
 function Intro() {
   return (
-    <section
-      id="sobre-mi"
-      className="relative py-16 scroll-mt-16 sm:scroll-mt-20 -mt-1 text-gray-900"
-    >
+    <section id="sobre-mi" className="relative pt-16 sm:pt-20 pb-0 scroll-mt-16 sm:scroll-mt-20 -mt-1 text-gray-900">
       {/* Fondo */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -266,7 +263,8 @@ function Intro() {
       <div className="absolute inset-0 bg-white/70" aria-hidden />
 
       {/* Contenido */}
-      <div className="relative max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10">
+      <div className=" reveal relative z-10 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10 mb-16">
+
         {/* Polaroid izquierda (retrato) */}
         <div className="relative bg-gray-200 p-3 rounded-md shadow-md rotate-[-2deg] group transition-transform">
           <div className="absolute top-[-10px] left-1/2 -translate-x-1/2 w-16 h-5 bg-white/40 backdrop-blur-sm rounded-sm shadow-sm border border-white/20 rotate-[1deg] transition-transform duration-300 group-hover:rotate-[3deg]" />
@@ -279,7 +277,7 @@ function Intro() {
         </div>
 
         {/* Texto central */}
-        <div className="relative max-w-md text-center md:text-left reveal">
+        <div className="relative max-w-md text-center md:text-left">
           <h2 className="font-mansalva text-4xl text-gray-800 mb-2 font-extrabold">¡Hola! Soy Luciana</h2>
           <p className="font-quicksand text-gray-700 text-lg leading-relaxed">
             Ando en bicicleta por el mundo compartiendo rutas, experiencias y paisajes. Este espacio es mi bitácora de
@@ -298,6 +296,13 @@ function Intro() {
           <p className="text-center text-xs text-gray-700 mt-2">Península Ibérica 2025</p>
         </div>
       </div>
+      {/* Papel al final, sin absolute, con fondo verde detrás */}
+          <div
+            aria-hidden
+            className="relative -mb-px w-full h-[140px] bg-[#465245] bg-no-repeat bg-bottom bg-cover z-0 pointer-events-none"
+            style={{ backgroundImage: `url(${tornPaperTop})` }}
+          />
+
     </section>
   );
 }
@@ -319,7 +324,7 @@ function Tag({ children }) {
 
 function BlogCardPine({ post }) {
   return (
-    <article className="overflow-hidden flex flex-col h-full bg-[rgba(0,0,0,.15)] border border-white/10 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+    <article className="reveal overflow-hidden flex flex-col h-full bg-[rgba(0,0,0,.15)] border border-white/10 shadow-sm transition-transform duration-300 hover:-translate-y-1">
       <div className="relative">
         <a href={post.url}>
           <img src={post.cover} alt="" className="h-44 w-full object-cover" />
@@ -380,21 +385,16 @@ function BlogCarousel() {
     };
   }, []);
 
-  return (
+return (
   <section
     id="blog-home"
-    className="relative py-16 sm:py-20 reveal"
+    className="relative overflow-hidden py-16 sm:py-20"
     style={{ background: PINE }}
   >
-    {/* Borde superior tipo papel */}
-    <img
-      src={tornPaperTop}
-      alt=""
-      aria-hidden="true"
-      className="pointer-events-none select-none absolute top-0 left-0 w-full block z-10"
-    />
 
-    <div className="relative mx-auto w-full max-w-7xl pt-24 px-4 sm:px-6 lg:px-8 text-white z-20">
+    {/* Contenido (por encima del borde) */}
+    <div className="relative z-30 mx-auto w-full max-w-7xl pt-2 px-4 sm:px-6 lg:px-8 text-white reveal">
+
       <header className="mb-8">
         <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Blog</p>
         <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">
@@ -407,7 +407,7 @@ function BlogCarousel() {
         <button
           aria-label="Anterior"
           onClick={() => scrollByCards(-1)}
-          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-12 z-40 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
             ${canLeft ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -432,7 +432,7 @@ function BlogCarousel() {
         <button
           aria-label="Siguiente"
           onClick={() => scrollByCards(1)}
-          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+          className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-12 z-40 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
             ${canRight ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -444,8 +444,9 @@ function BlogCarousel() {
 
     <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
   </section>
+);
 
-  );
+
 }
 
 /* ========================= Social (con estrellas custom) ========================= */
@@ -579,7 +580,7 @@ function SocialLive() {
   }, []);
 
   return (
-    <section id="social" className="relative py-16 sm:py-20 text-white reveal min-h-[520px]">
+    <section id="social" className="relative py-16 sm:py-20 text-white min-h-[520px]">
       {/* Fondo con foto (capa base) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
@@ -593,7 +594,7 @@ function SocialLive() {
       <canvas ref={canvasRef} className="absolute inset-0 z-10 pointer-events-none block" aria-hidden="true" />
 
       {/* Contenido */}
-      <Container className="relative z-20">
+      <Container className="relative z-20 reveal">
         <header className="mb-8">
           <p className="uppercase tracking-widest text-xs font-semibold text-white/80">
             Instagram + YouTube + TikTok
@@ -604,7 +605,7 @@ function SocialLive() {
         {/* 3 columnas en desktop: Instagram | YouTube | TikTok */}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Instagram card */}
-          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">Instagram</h3>
               <a
@@ -631,7 +632,7 @@ function SocialLive() {
           </div>
 
           {/* YouTube card (nueva) */}
-          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">YouTube</h3>
               <a
@@ -658,7 +659,7 @@ function SocialLive() {
           </div>
 
           {/* TikTok card */}
-          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">TikTok</h3>
               <a
@@ -706,15 +707,14 @@ function PressCarousel() {
       id="prensa"
       title="En los medios"
       subtitle="Notas y entrevistas"
-      className="reveal pb-24 sm:pb-40"
+      className="pb-24 sm:pb-40 reveal"
     >
       <div className="flex justify-center">
-        <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-3xl w-full reveal">
-          <div className="aspect-video w-full overflow-hidden">
+        <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-3xl w-full">
+          <div className="relative w-full overflow-hidden" style={{ paddingTop: "56.25%" }}>
             <iframe
-              src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fprogramaanuestramanera%2Fvideos%2F800684968037236%2F&show_text=false&width=560&t=0"
-              width="100%"
-              height="314"
+              src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fprogramaanuestramanera%2Fvideos%2F800684968037236%2F&show_text=false"
+              className="absolute top-0 left-0 w-full h-full"
               style={{ border: "none", overflow: "hidden" }}
               scrolling="no"
               frameBorder="0"
@@ -723,7 +723,8 @@ function PressCarousel() {
               title="Entrevista en A Nuestra Manera"
             />
           </div>
-          <p className="text-center text-sm text-gray-700 mt-3 font-quicksand">
+
+          <p className="text-center text-sm text-gray-700 mt-3 font-quicksand reveal">
             Entrevista para el programa <span className="font-semibold">A Nuestra Manera</span>
           </p>
         </div>
@@ -776,7 +777,7 @@ function ScrollToTopButton() {
 
 /* ========================= Página Home ========================= */
 export default function Home() {
-  // Reveal on scroll (activa .reveal)
+  // Reveal on scroll
   useEffect(() => {
     const els = document.querySelectorAll(".reveal");
     const obs = new IntersectionObserver(
