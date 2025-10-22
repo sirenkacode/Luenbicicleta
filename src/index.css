@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+
+/* === Fuentes === */
+@theme {
+  --font-lacquer: "Lacquer", cursive;
+  --font-mansalva: "Mansalva", cursive;
+  --font-quicksand: "Quicksand", sans-serif;
+  --font-sans: var(--font-quicksand);
+}
+
+/* Opcional: clases utilitarias por si las querés usar */
+.font-lacquer { font-family: var(--font-lacquer); }
+.font-mansalva { font-family: var(--font-mansalva); }
+.font-quicksand { font-family: var(--font-quicksand); }
+
+
+/* ===== Paleta y utilidades ===== */
+:root{
+  --bg: #f9fafb;              /* fondo */
+  --surface: #ffffff;         /* tarjetas */
+  --text: #111827;            /* texto */
+  --muted: #6b7280;           /* texto secundario */
+  --accent: #3A5239;          /* emerald-500 */
+  --accent-600:#3A5239;       /* emerald-600 */
+  --ring: rgba(16,185,129,.25);
+}
+
+html { scroll-behavior: smooth; }
+
+:root { --nav-h: 64px; }
+
+body{
+  background: var(--bg);
+  color: var(--text);
+}
+
+
+/* Botones reutilizables */
+.btn{
+  @apply inline-flex items-center justify-center rounded-xl font-semibold transition-all;
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+}
+.btn-primary{
+  background: var(--accent); color:#fff;
+  @apply px-4 py-2;
+}
+.btn-primary:hover{ background: var(--accent-600); }
+
+.btn-outline{
+  @apply px-4 py-2 border;
+  border-color: #e5e7eb; color: var(--text);
+}
+.btn-outline:hover{ background:#f3f4f6; }
+
+/* Tarjetas con “lift” */
+.card{
+  @apply rounded-3xl border shadow-sm overflow-hidden bg-white;
+  border-color:#e5e7eb; transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+
+/* Imágenes */
+.img-cover{ @apply w-full object-cover; }
+
+/* Badges/etiquetas pequeñas (si las usás) */
+.badge{ @apply inline-flex items-center px-2 py-1 rounded-full text-xs; background:#ecfdf5; color:var(--accent-600); }
+
+/* Links */
+a{ transition: color .15s ease; }
+a:hover{ color: var(--accent-600); }
+
+/* Clases de fuentes (por si no las pusiste) */
+.font-lacquer{ font-family: var(--font-lacquer); }
+.font-mansalva{ font-family: var(--font-mansalva); }
+.font-quicksand{ font-family: var(--font-quicksand); }
+
+/* --- Animaciones globales --- */
+
+/* flotar suave (para el botón) */
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* pulso sutil (para la línea punteada) */
+@keyframes pulseLine {
+  0%,100% { opacity: .65; }
+  50%     { opacity: .95; }
+}
+.animate-pulse-line {
+  animation: pulseLine 2.2s ease-in-out infinite;
+}
+
+/* revelado en scroll (fade + slide) */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* efecto de parallax MUY leve en el hero (opcional) */
+.hero-parallax {
+  will-change: transform;
+  transform: translateY(0);
+  transition: transform .08s linear;
+}
+
+
+/* =========================
+   👇 Agregá estos estilos al final de src/index.css
+
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* flotar suave (para el botón) */
+@keyframes float { 0%{transform:translateY(0)} 50%{transform:translateY(-4px)} 100%{transform:translateY(0)} }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* pulso sutil (para la línea punteada del hero) */
+@keyframes pulseLine { 0%,100%{opacity:.65} 50%{opacity:.95} }
+.animate-pulse-line { animation: pulseLine 2.2s ease-in-out infinite; }

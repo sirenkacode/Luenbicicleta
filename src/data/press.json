@@ -1,0 +1,16 @@
+[
+  {
+    "id": "n1",
+    "outlet": "El Viajero",
+    "title": "Luciana pedalea Europa de punta a punta",
+    "logo": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=120&auto=format&fit=crop",
+    "url": "#"
+  },
+  {
+    "id": "n2",
+    "outlet": "Revista Outdoor",
+    "title": "Cómo viajar sola en bici y no morir en el intento",
+    "logo": "https://images.unsplash.com/photo-1519336555923-59661f41bb54?q=80&w=120&auto=format&fit=crop",
+    "url": "#"
+  }
+]

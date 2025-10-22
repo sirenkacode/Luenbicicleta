@@ -1,0 +1,533 @@
+// src/pages/Home.jsx
+import { useEffect, useRef, useState } from "react";
+import posts from "../data/posts.json";
+import press from "../data/press.json";
+import banner from "../assets/banner-landscape.jpg";
+import polaroidPortrait from "../assets/polaroid-portrait.jpg";
+import polaroidSquare from "../assets/polaroid-square.jpg";
+import socialBg from "../assets/social-bg.jpg";
+import Footer from "../components/Footer";
+import tornPaper from "../assets/torn-paper.png";
+import introBg from "../assets/rippedpaper-mid.png";
+
+// helpers UI
+function Container({ className = "", children }) {
+  return <div className={`mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>;
+}
+function Section({ id, title, subtitle, children, className = "" }) {
+  return (
+    <section id={id} className={`py-16 sm:py-20 ${className}`}>
+      <Container>
+        {(title || subtitle) && (
+          <header className="mb-10 reveal">
+            {subtitle && <p className="uppercase tracking-widest text-xs font-semibold text-gray-500">{subtitle}</p>}
+            {title && (
+              <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold" style={{ fontFamily: "var(--font-mansalva)" }}>
+                {title}
+              </h2>
+            )}
+          </header>
+        )}
+        {children}
+      </Container>
+    </section>
+  );
+}
+
+/* ========================= Hero ========================= */
+function Hero() {
+  const NAV_H = 64;
+  const tornRef = useRef(null);
+
+  useEffect(() => {
+    const updateTornH = () => {
+      if (tornRef.current) {
+        const h = Math.round(tornRef.current.getBoundingClientRect().height);
+        document.documentElement.style.setProperty("--tornH", `${h}px`);
+      }
+    };
+    updateTornH();
+    window.addEventListener("resize", updateTornH);
+
+    const setVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+    setVh();
+    window.addEventListener("resize", setVh);
+    window.addEventListener("orientationchange", setVh);
+
+    return () => {
+      window.removeEventListener("resize", setVh);
+      window.removeEventListener("orientationchange", setVh);
+      window.removeEventListener("resize", updateTornH);
+    };
+  }, []);
+
+  const scrollToContent = () => {
+    const el = document.getElementById("sobre-mi");
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - NAV_H;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  return (
+    <header id="inicio" className="relative text-white" style={{ height: "calc(var(--vh, 1vh) * 100)" }}>
+      {/* Fondo del banner (sin parallax) */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${banner})` }}
+        aria-hidden
+      />
+      {/* Filtro oscuro */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+
+      {/* Contenido principal */}
+      <Container className="relative h-full flex flex-col justify-center">
+        {/* Grid principal con dos bloques y línea central */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center text-center md:text-left">
+          {/* Bloque 1: título + descripción */}
+          <div className="flex flex-col items-center md:items-start justify-center text-center md:text-left reveal">
+            <h1
+              className="text-4xl sm:text-6xl font-extrabold drop-shadow-lg"
+              style={{ fontFamily: "var(--font-lacquer)" }}
+            >
+              ¡Bienvenid@s a mi diario de ruta!
+            </h1>
+            <p className="mt-4 max-w-md text-base sm:text-lg text-white/90 font-quicksand">
+              Viajes en bicicleta por Europa y el mundo.  
+              Paisajes, relatos y consejos en tiempo real.
+            </p>
+          </div>
+
+          {/* Separador punteado */}
+          <div className="hidden md:flex justify-center">
+            <div className="h-40 border-l-2 border-dotted border-white/50 animate-pulse-line" />
+          </div>
+
+          {/* Bloque 2: métricas */}
+          <div className="space-y-2 font-quicksand text-base sm:text-lg md:text-right reveal">
+            <p>🌍 <span className="font-semibold text-white">16 países visitados</span></p>
+            <p>🚴‍♀️ <span className="font-semibold text-white">5000 km recorridos</span></p>
+            <p>⏱️ <span className="font-semibold text-white">543 días en la ruta</span></p>
+            <p className="mt-4 text-sm text-white/90 italic">
+              Próximo destino: <span className="font-semibold">Patagonia Argentina</span> 🇦🇷
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-40 flex justify-center">
+          <button
+            onClick={scrollToContent}
+            className="border-2 border-white text-white px-8 py-3 font-semibold hover:bg-[#465245] hover:border-[#465245] transition-colors duration-300 animate-float"
+          >
+            Explorar
+          </button>
+        </div>
+      </Container>
+
+      <img
+        ref={tornRef}
+        src={tornPaper}
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute bottom-0 left-0 w-full block z-20" 
+      />
+    </header>
+  );
+}
+
+/* ========================= Intro ========================= */
+function Intro() {
+  return (
+    <section
+      id="sobre-mi"
+      className="relative py-16 scroll-mt-16 sm:scroll-mt-20 -mt-1 text-gray-900"
+    >
+      {/* Fondo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${introBg})` }}
+        aria-hidden
+      />
+      {/* Overlay para legibilidad (podés ajustar opacidad/color) */}
+      <div className="absolute inset-0 bg-white/70" aria-hidden />
+
+      {/* Contenido */}
+      <div className="relative max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-10">
+        {/* Polaroid izquierda (retrato) */}
+        <div className="relative bg-gray-200 p-3 rounded-md shadow-md rotate-[-2deg] group transition-transform">
+          <div className="absolute top-[-10px] left-1/2 -translate-x-1/2 w-16 h-5 bg-white/40 backdrop-blur-sm rounded-sm shadow-sm border border-white/20 rotate-[1deg] transition-transform duration-300 group-hover:rotate-[3deg]" />
+          <img
+            src={polaroidPortrait}
+            alt="Luciana en bicicleta"
+            className="h-80 w-60 object-cover rounded-sm transition-transform duration-300 group-hover:-translate-y-1.5 group-hover:rotate-1"
+          />
+          <p className="text-center text-xs text-gray-700 mt-2">Francia 2024</p>
+        </div>
+
+        {/* Texto central */}
+        <div className="relative max-w-md text-center md:text-left reveal">
+          <h2 className="font-mansalva text-4xl text-gray-800 mb-2">¡Hola! Soy Luciana</h2>
+          <p className="font-quicksand text-gray-700 text-lg leading-relaxed">
+            Ando en bicicleta por el mundo compartiendo rutas, experiencias y paisajes. Este espacio es mi bitácora de
+            viaje: historias de camino, fotos y anécdotas de cada aventura sobre dos ruedas.
+          </p>
+        </div>
+
+        {/* Polaroid derecha (cuadrada) */}
+        <div className="relative bg-gray-200 p-3 rounded-md shadow-md rotate-[3deg] group transition-transform">
+          <div className="absolute top-[-10px] left-1/2 -translate-x-1/2 w-16 h-5 bg-white/40 backdrop-blur-sm rounded-sm shadow-sm border border-white/20 rotate-[-2deg] transition-transform duration-300 group-hover:rotate-[-5deg]" />
+          <img
+            src={polaroidSquare}
+            alt="Luciana viajando"
+            className="h-64 w-64 object-cover rounded-sm transition-transform duration-300 group-hover:-translate-y-1.5 group-hover:-rotate-1"
+          />
+          <p className="text-center text-xs text-gray-700 mt-2">Península Ibérica 2025</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+/* ========================= Blog (Carrusel) ========================= */
+const PINE = "#465245"; // verde pino, saturación media-baja
+
+function Tag({ children }) {
+  return (
+    <span
+      className="inline-flex items-center px-2 py-1 text-[11px] font-semibold"
+      style={{ background: "rgba(255,255,255,.08)", borderColor: "rgba(255,255,255,.18)", color: "rgba(255,255,255,.9)" }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function BlogCardPine({ post }) {
+  return (
+    <article className="overflow-hidden flex flex-col h-full bg-[rgba(0,0,0,.15)] border border-white/10 shadow-sm transition-transform duration-300 hover:-translate-y-1">
+      <div className="relative">
+        <a href={post.url}>
+          <img src={post.cover} alt="" className="h-44 w-full object-cover" />
+        </a>
+        {/* Tag arriba */}
+        {post.category && (
+          <div className="absolute top-3 left-3">
+            <Tag>{post.category === "personal" ? "Personal" : post.category}</Tag>
+          </div>
+        )}
+      </div>
+      <div className="p-4 flex flex-col flex-1 text-white">
+        <h3 className="font-mansalva text-xl leading-snug">
+          <a href={post.url} className="hover:opacity-90">
+            {post.title}
+          </a>
+        </h3>
+        <p className="mt-2 text-sm opacity-90 flex-1 font-quicksand">{post.excerpt}</p>
+        <div className="pt-4 text-xs opacity-80">{new Date(post.date).toLocaleDateString()}</div>
+      </div>
+    </article>
+  );
+}
+
+function BlogCarousel() {
+  const railRef = useRef(null);
+  const [canLeft, setCanLeft] = useState(false);
+  const [canRight, setCanRight] = useState(true); // asumimos más contenido que una pantalla
+
+  // Solo "personal" por ahora (podés cambiar a otra categoría luego)
+  const personal = posts.filter((p) => p.category === "personal").slice(0, 50);
+
+  const updateArrows = () => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const maxScrollLeft = rail.scrollWidth - rail.clientWidth;
+    setCanLeft(rail.scrollLeft > 4); // margen para evitar parpadeo
+    setCanRight(rail.scrollLeft < maxScrollLeft - 4); // margen
+  };
+
+  const scrollByCards = (dir) => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const card = rail.querySelector("article");
+    const step = card ? card.clientWidth + 24 : 320; // ancho card + gap aprox
+    rail.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    updateArrows();
+    const rail = railRef.current;
+    if (!rail) return;
+    rail.addEventListener("scroll", updateArrows);
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      rail.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, []);
+
+  return (
+    <section id="blog-home" className="py-16 sm:py-20 reveal" style={{ background: PINE }}>
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
+        <header className="mb-8">
+          <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Blog</p>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">Últimas actualizaciones</h2>
+        </header>
+
+        <div className="relative">
+          {/* Flecha izquierda (más alejada y auto-oculta) */}
+          <button
+            aria-label="Anterior"
+            onClick={() => scrollByCards(-1)}
+            className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -left-10 lg:-left-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+              ${canLeft ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Rail */}
+          <div
+            ref={railRef}
+            className="hide-scrollbar flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 pr-2"
+            aria-label="Carrusel de posts personales"
+          >
+            {personal.map((p) => (
+              <div key={p.id} className="snap-start shrink-0 w-80">
+                <BlogCardPine post={p} />
+              </div>
+            ))}
+          </div>
+
+          {/* Flecha derecha (más alejada y auto-oculta) */}
+          <button
+            aria-label="Siguiente"
+            onClick={() => scrollByCards(1)}
+            className={`hidden md:flex absolute top-1/2 -translate-y-1/2 -right-10 lg:-right-12 z-10 h-11 w-11 items-center justify-center border backdrop-blur-sm transition active:scale-95
+              ${canRight ? "border-white/30 bg-white/10 hover:bg-white/20" : "opacity-0 pointer-events-none border-transparent bg-transparent"}`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
+    </section>
+  );
+}
+
+/* ========================= Social ========================= */
+function SocialLive() {
+  useEffect(() => {
+    // Instagram
+    if (!document.querySelector("#instgrm-script")) {
+      const s = document.createElement("script");
+      s.id = "instgrm-script";
+      s.src = "https://www.instagram.com/embed.js";
+      s.async = true;
+      document.body.appendChild(s);
+    } else if (window.instgrm) {
+      setTimeout(() => window.instgrm?.Embeds?.process?.(), 50);
+    }
+    // TikTok
+    if (!document.querySelector("#tiktok-script")) {
+      const t = document.createElement("script");
+      t.id = "tiktok-script";
+      t.src = "https://www.tiktok.com/embed.js";
+      t.async = true;
+      document.body.appendChild(t);
+    }
+  }, []);
+
+  return (
+    <section id="social" className="relative py-16 sm:py-20 text-white reveal">
+      {/* Fondo con foto */}
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${socialBg})` }} aria-hidden />
+      {/* Filtro oscuro tipo banner */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.60),rgba(0,0,0,.25))]" />
+
+      <Container className="relative">
+        <header className="mb-8">
+          <p className="uppercase tracking-widest text-xs font-semibold text-white/80">Instagram + TikTok</p>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">En tiempo real</h2>
+        </header>
+
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Instagram card */}
+          <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+            <div className="p-4 flex items-center justify-between">
+              <h3 className="font-semibold font-mansalva text-xl">Instagram</h3>
+              <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
+                @luciana.en.bici
+              </a>
+            </div>
+            <div className="bg-black/20 p-2">
+              <blockquote
+                className="instagram-media"
+                data-instgrm-permalink="https://www.instagram.com/p/EL_LINK_DEL_POST/"
+                data-instgrm-version="14"
+                style={{ margin: "0 auto", maxWidth: 540 }}
+              />
+            </div>
+          </div>
+
+          {/* TikTok card */}
+          <div className="border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
+            <div className="p-4 flex items-center justify-between">
+              <h3 className="font-semibold font-mansalva text-xl">TikTok</h3>
+              <a href="#" className="text-sm text-white/90 hover:text-white underline font-quicksand">
+                @luciana.en.bici
+              </a>
+            </div>
+            <div className="bg-black/20 p-2">
+              <blockquote
+                className="tiktok-embed"
+                cite="https://www.tiktok.com/@USUARIO/video/ID_VIDEO"
+                data-video-id="ID_VIDEO"
+                style={{ maxWidth: 605, minWidth: 325, margin: "0 auto" }}
+              >
+                <section />
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+/* ========================= Prensa ========================= */
+function PressCard({ item }) {
+  return (
+    <a href={item.url} className="block border-gray-200 shadow-sm overflow-hidden group bg-white transition-transform hover:-translate-y-0.5">
+      <div className="p-5 flex items-center gap-4">
+        <img src={item.logo} alt="logo" className="h-10 w-10 object-cover grayscale group-hover:grayscale-0 transition" />
+        <div>
+          <div className="text-sm text-gray-500"> {item.outlet} </div>
+          <div className="font-semibold group-hover:text-emerald-700">{item.title}</div>
+        </div>
+      </div>
+    </a>
+  );
+}
+function PressCarousel() {
+  return (
+    <Section id="prensa" title="En los medios" subtitle="Notas y entrevistas" className="reveal">
+      <div className="space-y-10">
+        {/* Carrusel de notas */}
+        <div className="relative">
+          <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory py-2 hide-scrollbar" aria-label="Carrusel de notas">
+            {press.map((n) => (
+              <div key={n.id} className="snap-start shrink-0 w-80">
+                <PressCard item={n} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Video de Facebook */}
+        <div className="flex justify-center">
+          <div className="overflow-hidden shadow-lg border border-gray-200 bg-white/50 backdrop-blur-sm p-2 max-w-2xl w-full reveal">
+            <div className="aspect-video w-full overflow-hidden">
+              <iframe
+                src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Fprogramaanuestramanera%2Fvideos%2F800684968037236%2F&show_text=false&width=560&t=0"
+                width="100%"
+                height="314"
+                style={{ border: "none", overflow: "hidden" }}
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title="Entrevista en A Nuestra Manera"
+              />
+            </div>
+            <p className="text-center text-sm text-gray-700 mt-3 font-quicksand">
+              Entrevista para el programa <span className="font-semibold">A Nuestra Manera</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <style>{`.hide-scrollbar{scrollbar-width:none}.hide-scrollbar::-webkit-scrollbar{display:none}`}</style>
+    </Section>
+  );
+}
+
+/* ========================= Scroll To Top ========================= */
+function ScrollToTopButton() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisible = () => {
+      if (window.scrollY > 400) setVisible(true);
+      else setVisible(false);
+    };
+    window.addEventListener("scroll", toggleVisible);
+    return () => window.removeEventListener("scroll", toggleVisible);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      aria-label="Volver arriba"
+      className={`fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 h-11 w-11 flex items-center justify-center border backdrop-blur-sm transition duration-300
+        ${
+          visible
+            ? "opacity-100 border-white/30 bg-white/10 hover:bg-white/20"
+            : "opacity-0 pointer-events-none"
+        }`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+      </svg>
+    </button>
+  );
+}
+
+/* ========================= Página Home ========================= */
+export default function Home() {
+  // Reveal on scroll (activa .reveal)
+  useEffect(() => {
+    const els = document.querySelectorAll(".reveal");
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <Hero />
+      <Intro />
+      <BlogCarousel />
+      <SocialLive />
+      <PressCarousel />
+      {/* <Footer /> */}
+      <ScrollToTopButton />
+    </div>
+  );
+}
