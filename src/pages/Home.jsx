@@ -220,7 +220,7 @@ function Hero() {
 
   {/* Próximo destino */}
   <p className="mt-3 text-base sm:text-lg text-white/95 italic text-right">
-    Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span> 🇦🇷
+    Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span>
   </p>
           </div>
 
