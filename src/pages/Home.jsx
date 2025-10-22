@@ -220,7 +220,7 @@ function Hero() {
 
             {/* Próximo destino */}
             <p className="mt-3 text-base sm:text-lg text-white/95 italic text-center md:text-right">
-              Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span> 🇦🇷
+              Próximo destino: <span className="font-semibold text-white">Patagonia Argentina</span>
             </p>
           </div>
 
@@ -601,28 +601,33 @@ function SocialLive() {
           <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold font-mansalva">En tiempo real</h2>
         </header>
 
-        {/* 👉 Ahora 3 columnas en desktop: Instagram | YouTube | TikTok */}
+        {/* 3 columnas en desktop: Instagram | YouTube | TikTok */}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Instagram card */}
           <div className="border border-white/15 bg-white/10 backdrop-blur-sm shadow-[0_8px_24px_rgba(0,0,0,.25)] overflow-hidden reveal">
             <div className="p-4 flex items-center justify-between">
               <h3 className="font-semibold font-mansalva text-xl">Instagram</h3>
               <a
-                href="https://www.instagram.com/luciana.en.bici"
+                href="https://www.instagram.com/lulazabal"
                 className="text-sm text-white/90 hover:text-white underline font-quicksand"
                 target="_blank" rel="noopener noreferrer"
               >
-                @luenbicicleta
+                @lulazabal
               </a>
             </div>
-            <div className="bg-black/20 p-2">
-              <blockquote
-                className="instagram-media"
-                data-instgrm-permalink="https://www.instagram.com/p/EL_LINK_DEL_POST/"
-                data-instgrm-version="14"
-                style={{ margin: "0 auto", maxWidth: 540 }}
-              />
-            </div>
+            <div
+              className="instagram-embed-container"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  <blockquote 
+                    class="instagram-media" 
+                    data-instgrm-permalink="https://www.instagram.com/reel/C7rrXUhojTY/?utm_source=ig_embed&amp;utm_campaign=loading" 
+                    data-instgrm-version="14" 
+                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px auto; max-width:540px; min-width:326px; padding:0; width:99.375%;">
+                  </blockquote>
+                `,
+              }}
+            />
           </div>
 
           {/* YouTube card (nueva) */}
@@ -665,15 +670,27 @@ function SocialLive() {
               </a>
             </div>
             <div className="bg-black/20 p-2">
-              <blockquote
-                className="tiktok-embed"
-                cite="https://www.tiktok.com/@USUARIO/video/ID_VIDEO"
-                data-video-id="ID_VIDEO"
-                style={{ maxWidth: 605, minWidth: 325, margin: "0 auto" }}
-              >
-                <section />
-              </blockquote>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    <blockquote 
+                      class="tiktok-embed" 
+                      cite="https://www.tiktok.com/@luenbicicleta" 
+                      data-unique-id="luenbicicleta" 
+                      data-embed-type="creator" 
+                      style="max-width:780px;min-width:288px;"
+                    >
+                      <section>
+                        <a target="_blank" href="https://www.tiktok.com/@luenbicicleta?refer=creator_embed">@luenbicicleta</a>
+                      </section>
+                    </blockquote>
+                  `,
+                }}
+              />
+
+              <script async src="https://www.tiktok.com/embed.js"></script>
             </div>
+
           </div>
         </div>
       </Container>

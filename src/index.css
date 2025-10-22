@@ -63,14 +63,14 @@ body{
 /* Imágenes */
 .img-cover{ @apply w-full object-cover; }
 
-/* Badges/etiquetas pequeñas (si las usás) */
+/* Badges/etiquetas pequeñas */
 .badge{ @apply inline-flex items-center px-2 py-1 rounded-full text-xs; background:#ecfdf5; color:var(--accent-600); }
 
 /* Links */
 a{ transition: color .15s ease; }
 a:hover{ color: var(--accent-600); }
 
-/* Clases de fuentes (por si no las pusiste) */
+/* Clases de fuentes */
 .font-lacquer{ font-family: var(--font-lacquer); }
 .font-mansalva{ font-family: var(--font-mansalva); }
 .font-quicksand{ font-family: var(--font-quicksand); }
@@ -113,10 +113,6 @@ a:hover{ color: var(--accent-600); }
   transform: translateY(0);
   transition: transform .08s linear;
 }
-
-
-/* =========================
-   👇 Agregá estos estilos al final de src/index.css
 
 .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
 .reveal.in { opacity: 1; transform: translateY(0); }
